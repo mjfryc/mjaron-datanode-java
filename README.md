@@ -1,5 +1,8 @@
 # mjaron-filenode-java
 
+[![Java CI with Gradle](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle.yml/badge.svg)](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle.yml)
+[![Gradle Package](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle-publish.yml)
+
 **[DRAFT]** Abstract file tree with several implementations.
 
 ## API description
