@@ -30,3 +30,22 @@ public class Sample {
     }
 }
 ```
+
+## Integration
+
+
+### GitHub Packages
+
+Click the [Packages section](https://github.com/mjfryc?tab=packages&repo_name=mjaron-filenode-java) on the right.
+
+### Download directly
+
+1. Click the [Packages section](https://github.com/mjfryc?tab=packages&repo_name=mjaron-filenode-java) on the right.
+2. Find and download jar package from files list to e.g. `your_project_root/libs` dir.
+3. Add this jar to project dependencies in build.gradle, e.g:
+
+```gradle
+dependencies {
+    implementation files(project.rootDir.absolutePath + '/libs/mjaron-filenode-java-0.0.3.jar')
+}
+```
