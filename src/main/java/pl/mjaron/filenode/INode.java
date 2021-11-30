@@ -140,7 +140,15 @@ public interface INode {
 
     default byte[] readBytes() {
         try (InputStream inputStream = getInputStream()) {
-            return inputStream.readAllBytes();
+            // Source: https://www.baeldung.com/convert-input-stream-to-array-of-bytes#java-1
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int nRead;
+            byte[] data = new byte[1024];
+            while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+            buffer.flush();
+            return buffer.toByteArray();
         } catch (final IOException e) {
             throw new RuntimeException("Input stream failure.", e);
         }
@@ -155,7 +163,7 @@ public interface INode {
                 result.write(buffer, 0, length);
             }
             // StandardCharsets.UTF_8.name() > JDK 7
-            return result.toString(charset);
+            return result.toString(charset.name());
         } catch (IOException e) {
             throw new RuntimeException("Input stream failure.", e);
         }
