@@ -27,7 +27,8 @@ public interface INode {
     boolean isFile();
 
     /**
-     * Negation of {@link #isFile} function. Tells whether this node is a directory or not.
+     * Tells whether this node is a directory or not. Usually negation of {@link #isFile} function when given node
+     * exists.
      *
      * @return True if this node is a directory, so it is possible to list children of this node.
      */
@@ -39,9 +40,18 @@ public interface INode {
     boolean exists();
 
     /**
-     * Create this file or directory if not exists.
+     * Creates this directory if it is possible.
+     *
+     * @throws RuntimeException when filesystem is read only or because of other errors.
      */
-    void create();
+    void mkdirs();
+
+    /**
+     * Creates this file if it is possible.
+     *
+     * @throws RuntimeException when filesystem is read only or because of other errors.
+     */
+    void touch();
 
     /**
      * Removes this file from filesystem.
@@ -49,6 +59,12 @@ public interface INode {
      * @throws RuntimeException when filesystem is readonly.
      */
     void remove();
+
+    /**
+     * @return Size of the file.
+     * @throws RuntimeException when this is impossible to obtain file size.
+     */
+    long getSize();
 
     /**
      * Allows reading from the file.
@@ -65,6 +81,17 @@ public interface INode {
      * @throws RuntimeException when given node is not a file, or it is impossible to create output stream.
      */
     OutputStream getOutputStream();
+
+    /**
+     * @return Names of child nodes.
+     */
+    String[] getChildren();
+
+    /**
+     * @param name Name of child node.
+     * @return Child node.
+     */
+    INode getChild(String name);
 
     /**
      * @return File object if it is possible. It depends on its implementation. Usually it is possible only for local
