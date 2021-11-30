@@ -6,6 +6,20 @@ import org.junit.jupiter.api.*;
 class FileNodeTest {
 
     @Test
+    @Order(-1)
+    void demoTest() {
+        final String sentence = "Hello world\r\nByeWorld\n\r";
+        final INode root = new FileNode("root_dir");
+        root
+                .getChild("subdirectory").mkdirs()
+                .getChild("file.txt").remove().touch()
+                .write(sentence);
+
+        final String checkedContent = new FileNode("root_dir/subdirectory/file.txt").readString();
+        Assertions.assertEquals(sentence, checkedContent);
+    }
+
+    @Test
     @Order(0)
     void getName() {
         INode node = new FileNode(".");

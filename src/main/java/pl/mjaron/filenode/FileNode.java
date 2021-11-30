@@ -55,15 +55,17 @@ public class FileNode implements INode {
 
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public void mkdirs() {
+    public INode mkdirs() {
         file.mkdirs();
+        return this;
     }
 
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public void touch() {
+    public INode touch() {
         try {
             file.createNewFile();
+            return this;
         } catch (IOException e) {
             throw new RuntimeException("Failed to create a new file.", e);
         }
@@ -71,8 +73,9 @@ public class FileNode implements INode {
 
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public void remove() {
+    public INode remove() {
         deleteFileOrDir(file);
+        return this;
     }
 
     @Override

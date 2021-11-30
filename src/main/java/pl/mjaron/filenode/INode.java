@@ -1,8 +1,7 @@
 package pl.mjaron.filenode;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Represents single file or directory in any filesystem structure.
@@ -42,23 +41,26 @@ public interface INode {
     /**
      * Creates this directory if it is possible.
      *
+     * @return This reference.
      * @throws RuntimeException when filesystem is read only or because of other errors.
      */
-    void mkdirs();
+    INode mkdirs();
 
     /**
      * Creates this file if it is possible.
      *
+     * @return This reference.
      * @throws RuntimeException when filesystem is read only or because of other errors.
      */
-    void touch();
+    INode touch();
 
     /**
      * Removes this file from filesystem.
      *
+     * @return This reference.
      * @throws RuntimeException when filesystem is readonly.
      */
-    void remove();
+    INode remove();
 
     /**
      * @return Size of the file.
@@ -99,4 +101,67 @@ public interface INode {
      * @throws RuntimeException when cannot return a Java file.
      */
     File asJavaFile();
+
+    /**
+     * Writes given data using new output stream.
+     *
+     * @param what Data to write.
+     * @return This reference.
+     */
+    default INode write(final byte[] what) {
+        try (OutputStream out = getOutputStream()) {
+            out.write(what);
+        } catch (final IOException e) {
+            throw new RuntimeException("Output stream failure.", e);
+        }
+        return this;
+    }
+
+    /**
+     * Writes given String using new output stream.
+     *
+     * @param what    String to write.
+     * @param charset Charset used to encode String.
+     * @return This reference.
+     */
+    default INode write(final String what, final java.nio.charset.Charset charset) {
+        return write(what.getBytes(charset));
+    }
+
+    /**
+     * Writes given String using new output stream.
+     *
+     * @param what String to write as UTF_8 bytes.
+     * @return This reference.
+     */
+    default INode write(final String what) {
+        return write(what, StandardCharsets.UTF_8);
+    }
+
+    default byte[] readBytes() {
+        try (InputStream inputStream = getInputStream()) {
+            return inputStream.readAllBytes();
+        } catch (final IOException e) {
+            throw new RuntimeException("Input stream failure.", e);
+        }
+    }
+
+    default String readString(final java.nio.charset.Charset charset) {
+        try (InputStream inputStream = getInputStream()) {
+            // Source: https://stackoverflow.com/a/35446009/6835932
+            final ByteArrayOutputStream result = new ByteArrayOutputStream();
+            final byte[] buffer = new byte[1024];
+            for (int length; (length = inputStream.read(buffer)) != -1; ) {
+                result.write(buffer, 0, length);
+            }
+            // StandardCharsets.UTF_8.name() > JDK 7
+            return result.toString(charset);
+        } catch (IOException e) {
+            throw new RuntimeException("Input stream failure.", e);
+        }
+    }
+
+    default String readString() {
+        return readString(StandardCharsets.UTF_8);
+    }
 }
