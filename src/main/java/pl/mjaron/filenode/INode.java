@@ -2,10 +2,13 @@ package pl.mjaron.filenode;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents single file or directory in any filesystem structure.
  */
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public interface INode {
 
     /**
@@ -87,7 +90,12 @@ public interface INode {
     /**
      * @return Names of child nodes.
      */
-    String[] getChildren();
+    String[] getChildrenNames();
+
+    /**
+     * @return Direct children nodes.
+     */
+    List<INode> getChildren();
 
     /**
      * @param name Name of child node.
@@ -171,5 +179,48 @@ public interface INode {
 
     default String readString() {
         return readString(StandardCharsets.UTF_8);
+    }
+
+    /**
+     * @param result After calling, it will contain all child nodes which are files, including nested files.
+     */
+    default void getFileDescendants(final List<INode> result) {
+        for (final INode child : this.getChildren()) {
+            if (child.isFile()) {
+                result.add(child);
+            } else {
+                child.getFileDescendants(result);
+            }
+        }
+    }
+
+    /**
+     * @return All child nodes which are files, including nested files.
+     */
+    default List<INode> getFileDescendants() {
+        List<INode> result = new ArrayList<>();
+        getFileDescendants(result);
+        return result;
+    }
+
+    /**
+     * @param result After calling, it will contain all child nodes including directories and other nested files.
+     */
+    default void getDescendants(final List<INode> result) {
+        for (final INode child : this.getChildren()) {
+            result.add(child);
+            if (child.isDirectory()) {
+                child.getDescendants(result);
+            }
+        }
+    }
+
+    /**
+     * @return All child nodes including directories and other nested files.
+     */
+    default List<INode> getDescendants() {
+        List<INode> result = new ArrayList<>();
+        getDescendants(result);
+        return result;
     }
 }

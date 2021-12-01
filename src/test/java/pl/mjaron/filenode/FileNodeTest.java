@@ -2,6 +2,8 @@ package pl.mjaron.filenode;
 
 import org.junit.jupiter.api.*;
 
+import java.util.List;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class FileNodeTest {
 
@@ -101,7 +103,7 @@ class FileNodeTest {
     @Order(11)
     void getChildren() {
         INode node = new FileNode("myDir");
-        Assertions.assertEquals(1, node.getChildren().length);
+        Assertions.assertEquals(1, node.getChildrenNames().length);
     }
 
     @Test
@@ -116,5 +118,23 @@ class FileNodeTest {
     void asJavaFile() {
         INode node = new FileNode("myFile.txt");
         Assertions.assertNotNull(node.asJavaFile());
+    }
+
+    @Test
+    @Order(14)
+    void getFileDescendants() {
+        INode node = new FileNode("myDir");
+        List<INode> descendants = node.getFileDescendants();
+        System.out.println("Descendants: " + descendants);
+        Assertions.assertEquals(1, descendants.size());
+    }
+
+    @Test
+    @Order(15)
+    void getDescendants() {
+        INode node = new FileNode("myDir");
+        List<INode> descendants = node.getDescendants();
+        System.out.println("Descendants: " + descendants);
+        Assertions.assertEquals(2, descendants.size());
     }
 }

@@ -1,6 +1,8 @@
 package pl.mjaron.filenode;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -26,6 +28,11 @@ public class FileNode implements INode {
             }
         }
         file.delete();
+    }
+
+    @Override
+    public String toString() {
+        return this.getPath();
     }
 
     @Override
@@ -72,7 +79,6 @@ public class FileNode implements INode {
     }
 
     @Override
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public INode remove() {
         deleteFileOrDir(file);
         return this;
@@ -102,7 +108,7 @@ public class FileNode implements INode {
     }
 
     @Override
-    public String[] getChildren() {
+    public String[] getChildrenNames() {
         final File[] childFiles = file.listFiles();
         final String[] childNames = new String[(childFiles != null) ? childFiles.length : 0];
         if (childFiles != null) {
@@ -111,6 +117,16 @@ public class FileNode implements INode {
             }
         }
         return childNames;
+    }
+
+    @Override
+    public List<INode> getChildren() {
+        final File[] childFiles = Objects.requireNonNull(file.listFiles());
+        List<INode> result = new ArrayList<>(childFiles.length);
+        for (final File childFile : childFiles) {
+            result.add(new FileNode(childFile));
+        }
+        return result;
     }
 
     @Override
