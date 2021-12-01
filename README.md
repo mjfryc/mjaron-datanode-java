@@ -2,6 +2,7 @@
 
 [![Java CI with Gradle](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle.yml/badge.svg)](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle.yml)
 [![Gradle Package](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle-publish.yml)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.mjfryc/mjaron-filenode-java?color=dark-green&style=flat)](https://search.maven.org/artifact/io.github.mjfryc/mjaron-filenode-java/)
 
 **[DRAFT]** Abstract file tree with several implementations.
 
