@@ -182,6 +182,13 @@ public interface INode {
     }
 
     /**
+     * @return Count of (direct) children.
+     */
+    default int getChildrenCount() {
+        return this.getChildrenNames().length;
+    }
+
+    /**
      * @param result After calling, it will contain all child nodes which are files, including nested files.
      */
     default void getFileDescendants(final List<INode> result) {
@@ -222,5 +229,30 @@ public interface INode {
         List<INode> result = new ArrayList<>();
         getDescendants(result);
         return result;
+    }
+
+    /**
+     * Removes all children but not this node.
+     *
+     * @return This reference.
+     */
+    default INode removeChildren() {
+        for (final INode child : this.getChildren()) {
+            child.remove();
+        }
+        return this;
+    }
+
+    /**
+     * Checks whether this node exists, throws when it doesn't.
+     *
+     * @return This reference.
+     * @throws RuntimeException when this node doesn't exist.
+     */
+    default INode assertExists() {
+        if (this.exists()) {
+            return this;
+        }
+        throw new RuntimeException("Assertion failed: Node doesn't exist: [" + getPath() + "].");
     }
 }
