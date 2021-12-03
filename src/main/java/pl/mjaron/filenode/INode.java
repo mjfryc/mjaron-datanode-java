@@ -4,6 +4,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents single file or directory in any filesystem structure.
@@ -90,10 +92,10 @@ public interface INode {
     /**
      * @return Names of child nodes.
      */
-    String[] getChildrenNames();
+    List<String> getChildrenNames();
 
     /**
-     * @return Direct children nodes.
+     * @return Direct children nodes. If there is no children, empty list will be returned.
      */
     List<INode> getChildren();
 
@@ -123,6 +125,22 @@ public interface INode {
             throw new RuntimeException("Output stream failure.", e);
         }
         return this;
+    }
+
+    /**
+     * @param namePattern Child name pattern.
+     * @return Filtered children list.
+     */
+    default List<INode> getChildren(Pattern namePattern) {
+        final List<INode> allChildren = this.getChildren();
+        final List<INode> filteredChildren = new ArrayList<>(allChildren.size());
+        for (final INode child : allChildren) {
+            final Matcher matcher = namePattern.matcher(child.getName());
+            if (matcher.matches()) {
+                filteredChildren.add(child);
+            }
+        }
+        return filteredChildren;
     }
 
     /**
@@ -162,6 +180,12 @@ public interface INode {
         }
     }
 
+    /**
+     * Read whole file to the String.
+     *
+     * @param charset How to interpret file bytes.
+     * @return String with whole file content.
+     */
     default String readString(final java.nio.charset.Charset charset) {
         try (InputStream inputStream = getInputStream()) {
             // Source: https://stackoverflow.com/a/35446009/6835932
@@ -177,6 +201,11 @@ public interface INode {
         }
     }
 
+    /**
+     * Read whole file to the String.
+     *
+     * @return String with whole file content.
+     */
     default String readString() {
         return readString(StandardCharsets.UTF_8);
     }
@@ -185,7 +214,7 @@ public interface INode {
      * @return Count of (direct) children.
      */
     default int getChildrenCount() {
-        return this.getChildrenNames().length;
+        return this.getChildrenNames().size();
     }
 
     /**

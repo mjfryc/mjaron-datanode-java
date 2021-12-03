@@ -108,12 +108,12 @@ public class FileNode implements INode {
     }
 
     @Override
-    public String[] getChildrenNames() {
+    public List<String> getChildrenNames() {
         final File[] childFiles = file.listFiles();
-        final String[] childNames = new String[(childFiles != null) ? childFiles.length : 0];
+        final List<String> childNames = new ArrayList<String>((childFiles != null) ? childFiles.length : 0);
         if (childFiles != null) {
-            for (int i = 0; i < childFiles.length; ++i) {
-                childNames[i] = childFiles[i].getName();
+            for (final File childFile : childFiles) {
+                childNames.add(childFile.getName());
             }
         }
         return childNames;
@@ -121,7 +121,10 @@ public class FileNode implements INode {
 
     @Override
     public List<INode> getChildren() {
-        final File[] childFiles = Objects.requireNonNull(file.listFiles());
+        final File[] childFiles = file.listFiles();
+        if (childFiles == null) {
+            return new ArrayList<>(0);
+        }
         List<INode> result = new ArrayList<>(childFiles.length);
         for (final File childFile : childFiles) {
             result.add(new FileNode(childFile));
@@ -137,5 +140,14 @@ public class FileNode implements INode {
     @Override
     public File asJavaFile() {
         return file;
+    }
+
+    @Override
+    public int getChildrenCount() {
+        final File[] childFiles = this.file.listFiles();
+        if (childFiles == null) {
+            return 0;
+        }
+        return childFiles.length;
     }
 }

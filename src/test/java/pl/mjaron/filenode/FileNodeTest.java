@@ -3,6 +3,7 @@ package pl.mjaron.filenode;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class FileNodeTest {
@@ -103,7 +104,28 @@ class FileNodeTest {
     @Order(11)
     void getChildren() {
         INode node = new FileNode("myDir");
-        Assertions.assertEquals(1, node.getChildrenNames().length);
+        Assertions.assertEquals(1, node.getChildrenNames().size());
+    }
+
+    @Test
+    @Order(11)
+    void getChildrenPatternOk() {
+        INode node = new FileNode("myDir");
+        Assertions.assertEquals(1, node.getChildren(Pattern.compile("myNested.*")).size());
+    }
+
+    @Test
+    @Order(11)
+    void getChildrenPatternNok() {
+        INode node = new FileNode("myDir");
+        Assertions.assertEquals(0, node.getChildren(Pattern.compile("wrong.*")).size());
+    }
+
+    @Test
+    @Order(11)
+    void noChildrenTest() {
+        INode node = new FileNode("notExistingDir");
+        Assertions.assertEquals(0, node.getChildren().size());
     }
 
     @Test
