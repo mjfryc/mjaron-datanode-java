@@ -34,6 +34,13 @@ public class Sample {
 
 ## Integration
 
+### Maven Central
+
+`dependencies {`
+```gradle
+implementation 'io.github.mjfryc:mjaron-filenode-java:0.0.7'
+```
+`}`
 
 ### GitHub Packages
 
@@ -46,7 +53,5 @@ Click the [Packages section](https://github.com/mjfryc?tab=packages&repo_name=mj
 3. Add this jar to project dependencies in build.gradle, e.g:
 
 ```gradle
-dependencies {
-    implementation files(project.rootDir.absolutePath + '/libs/mjaron-filenode-java-0.0.3.jar')
-}
+implementation files(project.rootDir.absolutePath + '/libs/mjaron-filenode-java-0.0.3.jar')
 ```
