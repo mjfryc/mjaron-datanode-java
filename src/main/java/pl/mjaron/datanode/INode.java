@@ -165,7 +165,7 @@ public interface INode {
     }
 
     default byte[] readBytes() {
-        try (InputStream inputStream = getInputStream()) {
+        try (final InputStream inputStream = getInputStream()) {
             // Source: https://www.baeldung.com/convert-input-stream-to-array-of-bytes#java-1
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             int nRead;
@@ -187,7 +187,7 @@ public interface INode {
      * @return String with whole file content.
      */
     default String readString(final java.nio.charset.Charset charset) {
-        try (InputStream inputStream = getInputStream()) {
+        try (final InputStream inputStream = getInputStream()) {
             // Source: https://stackoverflow.com/a/35446009/6835932
             final ByteArrayOutputStream result = new ByteArrayOutputStream();
             final byte[] buffer = new byte[1024];
