@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'io.github.mjfryc'
-version '0.0.7'
+version '0.0.8'
 
 repositories {
     mavenCentral()
@@ -36,11 +36,11 @@ project.plugins.withType(MavenPublishPlugin).all {
         mavenPublication.pom {
             name = "${project.group}:${project.name}"
             description = name
-            url = "https://github.com/mjfryc/mjaron-filenode-java"
+            url = "https://github.com/mjfryc/mjaron-datanode-java"
             licenses {
                 license {
                     name = "MIT License"
-                    url = "https://raw.githubusercontent.com/mjfryc/mjaron-filenode-java/main/LICENSE"
+                    url = "https://raw.githubusercontent.com/mjfryc/mjaron-datanode-java/main/LICENSE"
                 }
             }
             developers {
@@ -51,9 +51,9 @@ project.plugins.withType(MavenPublishPlugin).all {
                 }
             }
             scm {
-                connection = "scm:git:https://github.com/mjfryc/mjaron-filenode-java"
-                developerConnection = "scm:git:git@github.com:mjfryc/mjaron-filenode-java.git"
-                url = "https://github.com/mjfryc/mjaron-filenode-java"
+                connection = "scm:git:https://github.com/mjfryc/mjaron-datanode-java"
+                developerConnection = "scm:git:git@github.com:mjfryc/mjaron-datanode-java.git"
+                url = "https://github.com/mjfryc/mjaron-datanode-java"
             }
         }
     }
@@ -76,7 +76,7 @@ publishing {
         }
         maven {
             name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/mjfryc/mjaron-filenode-java"
+            url = "https://maven.pkg.github.com/mjfryc/mjaron-datanode-java"
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")

@@ -1,21 +1,21 @@
-# mjaron-filenode-java
+# mjaron-datanode-java
 
-[![Java CI with Gradle](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle.yml/badge.svg)](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle.yml)
-[![Gradle Package](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/mjfryc/mjaron-filenode-java/actions/workflows/gradle-publish.yml)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.mjfryc/mjaron-filenode-java?color=dark-green&style=flat)](https://search.maven.org/artifact/io.github.mjfryc/mjaron-filenode-java/)
+[![Java CI with Gradle](https://github.com/mjfryc/mjaron-datanode-java/actions/workflows/gradle.yml/badge.svg)](https://github.com/mjfryc/mjaron-datanode-java/actions/workflows/gradle.yml)
+[![Gradle Package](https://github.com/mjfryc/mjaron-datanode-java/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/mjfryc/mjaron-datanode-java/actions/workflows/gradle-publish.yml)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.mjfryc/mjaron-datanode-java?color=dark-green&style=flat)](https://search.maven.org/artifact/io.github.mjfryc/mjaron-datanode-java/)
 
 **[DRAFT]** Abstract file tree with several implementations.
 
 ## API description
 
 This library defines
-universal [INode](https://github.com/mjfryc/mjaron-filenode-java/blob/main/src/main/java/pl/mjaron/filenode/INode.java)
+universal [INode](https://github.com/mjfryc/mjaron-datanode-java/blob/main/src/main/java/pl/mjaron/datanode/INode.java)
 interface and provides some implementations for this interface:
 
 * FileNode - standard filesystem node based on `java.io.File`.
 
 ```java
-import pl.mjaron.filenode;
+import pl.mjaron.datanode;
 
 public class Sample {
     public static void main(String[] args) {
@@ -38,20 +38,20 @@ public class Sample {
 
 `dependencies {`
 ```gradle
-implementation 'io.github.mjfryc:mjaron-filenode-java:0.0.7'
+implementation 'io.github.mjfryc:mjaron-datanode-java:0.0.8'
 ```
 `}`
 
 ### GitHub Packages
 
-Click the [Packages section](https://github.com/mjfryc?tab=packages&repo_name=mjaron-filenode-java) on the right.
+Click the [Packages section](https://github.com/mjfryc?tab=packages&repo_name=mjaron-datanode-java) on the right.
 
 ### Download directly
 
-1. Click the [Packages section](https://github.com/mjfryc?tab=packages&repo_name=mjaron-filenode-java) on the right.
+1. Click the [Packages section](https://github.com/mjfryc?tab=packages&repo_name=mjaron-datanode-java) on the right.
 2. Find and download jar package from files list to e.g. `your_project_root/libs` dir.
 3. Add this jar to project dependencies in build.gradle, e.g:
 
 ```gradle
-implementation files(project.rootDir.absolutePath + '/libs/mjaron-filenode-java-0.0.3.jar')
+implementation files(project.rootDir.absolutePath + '/libs/mjaron-datanode-java-0.0.8.jar')
 ```

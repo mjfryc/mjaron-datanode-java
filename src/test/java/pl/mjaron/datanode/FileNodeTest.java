@@ -1,4 +1,4 @@
-package pl.mjaron.filenode;
+package pl.mjaron.datanode;
 
 import org.junit.jupiter.api.*;
 

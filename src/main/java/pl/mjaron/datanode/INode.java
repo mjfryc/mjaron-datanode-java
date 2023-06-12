@@ -1,4 +1,4 @@
-package pl.mjaron.filenode;
+package pl.mjaron.datanode;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
