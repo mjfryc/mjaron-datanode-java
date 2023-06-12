@@ -38,7 +38,7 @@ public class Sample {
 
 `dependencies {`
 ```gradle
-implementation 'io.github.mjfryc:mjaron-datanode-java:0.0.8'
+implementation 'io.github.mjfryc:mjaron-datanode-java:1.0.0'
 ```
 `}`
 
@@ -53,5 +53,5 @@ Click the [Packages section](https://github.com/mjfryc?tab=packages&repo_name=mj
 3. Add this jar to project dependencies in build.gradle, e.g:
 
 ```gradle
-implementation files(project.rootDir.absolutePath + '/libs/mjaron-datanode-java-0.0.8.jar')
+implementation files(project.rootDir.absolutePath + '/libs/mjaron-datanode-java-1.0.0.jar')
 ```
