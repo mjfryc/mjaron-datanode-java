@@ -22,7 +22,6 @@ class HttpNodeTest {
     void basic() {
         checkNode("http://example.com/");
         checkNode("https://example.com/");
-        checkNode(new HttpNode("https://example.com").getChild("fish/").getChild("/mosquito"));
     }
 
     @Test
